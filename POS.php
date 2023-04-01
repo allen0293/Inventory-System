@@ -161,7 +161,7 @@
                     <tfoot>
                       <tr>
                           <th colspan="5" style="text-align:right">Total:</th>
-                          <th><?php echo number_format($total,2); ?></th>
+                          <th id="totalTable"><?php echo number_format($total,2); ?></th>
                       </tr>
                   </tfoot>
                   </table>
@@ -187,7 +187,7 @@
                     <label for="amount">Amount</label>
                 </div>
                 <div class="d-grid">
-                    <button class="btn btn-primary btn-login text-uppercase fw-bold" name="amountendered" type="submit">submit</button>
+                    <button class="btn btn-primary btn-login text-uppercase fw-bold" name="amountendered" id="amountendered" type="submit">submit</button>
                 </div>
                 <hr class="my-4">
                 </form>
@@ -214,7 +214,21 @@
         $(table).DataTable();
       });
     });
+   
+    const amountEnteredInput = document.getElementById('amount');
+    const totalTable = document.getElementById("totalTable").innerHTML;
+    const submitButton = document.getElementById('amountendered');
 
+
+    submitButton.disabled = true;
+
+    amountEnteredInput.addEventListener('input', () => {
+  if (amountEnteredInput.value === '' || parseFloat(amountEnteredInput.value) < parseFloat(totalTable)) {
+    submitButton.disabled = true;
+  } else {
+    submitButton.disabled = false;
+  }
+});
   </script>
  </body>
 </html>
