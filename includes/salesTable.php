@@ -5,7 +5,7 @@
             <div class="card">
               <div class="card-header">
                 <h4 class="me-3 ">SALES RECORD</h4>
-                <a href="code.php?exportSales" class="btn btn-sm btn btn-outline-success">Export</a>
+                <a href="code.php?exportSales" class="btn btn-sm btn btn-outline-success"><i class="fa-solid fa-file-export"></i> Export</a>
               </div>
               <div class="card-body shadow">
                 <div class="table-responsive">

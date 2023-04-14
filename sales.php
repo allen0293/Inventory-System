@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <?php include('includes/fontawesome.php'); ?>
     <script src="js/swal.js"></script>
     <title>MARIBETH VARIETY STORE</title>
   </head>

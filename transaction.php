@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="js/swal.js"></script>
+    <?php include('includes/fontawesome.php'); ?>
     <title>MARIBETH VARIETY STORE</title>
   </head>
   <body>
@@ -92,7 +93,7 @@
                         <td><?php echo number_format($row['cash'],2);  ?></td>
                         <td><?php echo $row['trans_change']; ?></td>
                         <td><?php echo $date; ?></td>
-                        <td><a href="receipt.php?transaction=<?php echo $row['trans_id']; ?>" target="_blank" class=" btn btn-sm btn-outline-info">Print Receipt</a>
+                        <td><a href="receipt.php?transaction=<?php echo $row['trans_id']; ?>" target="_blank" class=" btn btn-sm btn-outline-info"><i class="fa-solid fa-receipt"></i> Print Receipt</a>
 
                       </tr>
                       <?php } ?>
@@ -111,7 +112,7 @@
     <script src="./js/jquery-3.5.1.js"></script>
     <script src="./js/jquery.dataTables.min.js"></script>
     <script src="./js/dataTables.bootstrap5.min.js"></script>
-
+    
     <script>
       // JQuery confirmation
       $('.confirmation').on('click', function () {

@@ -8,14 +8,8 @@
         <nav class="navbar-dark">
           <ul class="navbar-nav">
             <li>
-              <div class="text-muted small fw-bold text-uppercase px-3">
-        
-              </div>
-            </li>
-            <li>
               <a href="index.php" class="nav-link px-3 active">
-                <span class="me-2"></span>
-                <span>Dashboard</span>
+                <h3 class="text-center">MARIBETH VARIETY STORE</h3>
               </a>
             </li>
             <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
@@ -27,7 +21,7 @@
             <li>
              <a class="nav-link px-3 sidebar-link"href="POS.php">
                 <span class="me-2"></i></span>
-                <span>Point of Sale</span>
+                <span><i class="fa-solid fa-tag"></i> Point of Sale</span>
                 <span class="ms-auto">
                   <span class="right-icon"></span>
                 </span>
@@ -36,8 +30,8 @@
 
             <li>
              <a class="nav-link px-3 sidebar-link"href="inventory.php">
-                <span class="me-2"></i></span>
-                <span>Inventory</span>
+                <span class="me-2"></span>
+                <span><i class="fa-solid fa-clipboard"></i> Products</span>
                 <span class="ms-auto">
                   <span class="right-icon"></span>
                 </span>
@@ -46,7 +40,7 @@
             <li>
              <a class="nav-link px-3 sidebar-link"href="transaction.php">
                 <span class="me-2"></i></span>
-                <span>Transaction</span>
+                <span><i class="fa-solid fa-file-invoice"></i> Transaction</span>
                 <span class="ms-auto">
                   <span class="right-icon"></span>
                 </span>
@@ -55,7 +49,7 @@
             <li>
              <a class="nav-link px-3 sidebar-link"href="sales.php">
                 <span class="me-2"></i></span>
-                <span>Sales Record</span>
+                <span><i class="fa-solid fa-folder-closed"></i> Sales Record</span>
                 <span class="ms-auto">
                   <span class="right-icon"></span>
                 </span>

@@ -11,6 +11,8 @@
     />
     <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <?php include('includes/fontawesome.php'); ?>
+
     <script src="js/swal.js"></script>
     <title>MARIBETH VARIETY STORE</title>
   </head>
@@ -52,13 +54,13 @@
             <div class="card shadow">
               <div class="card-header">
                <h2>INVENTORY</h2>
-                <button type="button" class="btn btn-sm btn btn-outline-success"
+                <button type="button" class="btn btn-sm btn btn-outline-warning"
                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;"
                  data-bs-toggle="modal" 
                  data-bs-target="#product">
-                  ADD NEW PRODUCT
+                 <i class="fa-solid fa-file-circle-plus"></i> ADD NEW PRODUCT
                 </button>
-                <a href="code.php?exportInventory" class="btn btn-sm btn btn-outline-success">Export</a>
+                <a href="code.php?exportInventory" class="btn btn-sm btn btn-outline-success"><i class="fa-solid fa-file-export"></i> Export</a>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -92,10 +94,10 @@
                     
                       ?>
                       <tr>
-                      <td><a href="#" class=" btn btn-sm btn-outline-info"  data-bs-toggle="modal"data-bs-target="#editProduct<?php echo $row['invt_id']; ?>">Edit</a>
-                      <a href="#" class="btn btn-sm btn-outline-success" style="text-decoration: none ;"data-bs-toggle="modal" data-bs-target="#addStock<?php echo $row['invt_id']; ?>" >Add Stock</a>
-                      <a href="#" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#deductStock<?php echo $row['invt_id']; ?>" >Deduct Stock</a>
-                      <a class="btn btn-sm btn-outline-danger confirmation "style="text-decoration: none ;" href="productCode.php?deleteProduct=<?php echo $row['invt_id'];?>">Delete</a>
+                      <td><a href="#" class=" btn btn-sm btn-outline-info"  data-bs-toggle="modal"data-bs-target="#editProduct<?php echo $row['invt_id']; ?>"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                      <a href="#" class="btn btn-sm btn-outline-success" style="text-decoration: none ;"data-bs-toggle="modal" data-bs-target="#addStock<?php echo $row['invt_id']; ?>" ><i class="fa-solid fa-circle-plus"></i> Stock</a>
+                      <a href="#" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#deductStock<?php echo $row['invt_id']; ?>" ><i class="fa-solid fa-circle-minus"></i> Stock</a>
+                      <a class="btn btn-sm btn-outline-danger confirmation "style="text-decoration: none ;" href="productCode.php?deleteProduct=<?php echo $row['invt_id'];?>"><i class="fa-solid fa-trash"></i> Delete</a>
                       </td>
                         <td><?php echo $row['name']; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
@@ -160,7 +162,7 @@
     <script src="./js/jquery-3.5.1.js"></script>
     <script src="./js/jquery.dataTables.min.js"></script>
     <script src="./js/dataTables.bootstrap5.min.js"></script>
-
+    <script src="sweetalert/sweetalert2.min.js"></script>
     <script>
       // JQuery confirmation
       $('.confirmation').on('click', function () {

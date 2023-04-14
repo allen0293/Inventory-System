@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <?php include('includes/fontawesome.php'); ?>
     <script src="js/swal.js"></script>
     <title>MARIBETH VARIETY STORE</title>
   </head>
@@ -80,7 +81,7 @@
                       ?>
                       <tr>
                       <td>
-                      <a href="#" class="btn btn-sm btn-outline-success" style="text-decoration: none ;" data-bs-toggle="modal" data-bs-target="#addStock<?php echo $row['invt_id']; ?>" >Add To Queue</a>
+                      <a href="#" class="btn btn-sm btn-outline-success" style="text-decoration: none ;" data-bs-toggle="modal" data-bs-target="#addStock<?php echo $row['invt_id']; ?>" ><i class="fa-solid fa-circle-plus"></i> Add To Queue</a>
                       </td>
                         <td><?php echo $row['name']; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
@@ -107,7 +108,7 @@
                  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;"
                  data-bs-toggle="modal" 
                  data-bs-target="#payment">
-                 Complete Payment
+                 <i class="fa-solid fa-money-bill"></i> Complete Payment
                 </button>
               </div>
               <div class="card-body shadow">
@@ -148,7 +149,7 @@
                       ?>
                       <tr>
                         <td>
-                        <a class="text-danger confirmation" href="POSCode.php?posId=<?php echo $row['pos_id'];?>&invtId=<?php echo $row['invt_id'];?>&qnty=<?php echo $row['qnty'];?>">Delete</a>
+                        <a class="btn btn-sm btn-outline-danger confirmation" href="POSCode.php?posId=<?php echo $row['pos_id'];?>&invtId=<?php echo $row['invt_id'];?>&qnty=<?php echo $row['qnty'];?>"><i class="fa-solid fa-trash"></i> Delete</a>
                         </td>
                         <td><?php echo $row['name']; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
@@ -202,7 +203,7 @@
     <script src="./js/jquery-3.5.1.js"></script>
     <script src="./js/jquery.dataTables.min.js"></script>
     <script src="./js/dataTables.bootstrap5.min.js"></script>
-
+    <script src="sweetalert/sweetalert2.min.js"></script>
     <script>
       // JQuery confirmation
       $('.confirmation').on('click', function () {

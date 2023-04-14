@@ -13,7 +13,7 @@
         <a
           class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold fs-4"
           href="index.php"
-          >MARIBETH VARIETY STORE</a
+          ></a
         >
         <button
           class="navbar-toggler"
@@ -41,10 +41,10 @@
                 <?php echo $_SESSION['username']; ?>
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#change-pass">Change Password</a></li>
-                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#recovery-modal">Change Recovery Key</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#change-pass"><i class="fa-solid fa-lock"></i> Change Password</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#recovery-modal"><i class="fa-solid fa-key"></i> Change Recovery Key</a></li>
                 <li>
-                  <a class="dropdown-item" href="#"data-bs-toggle="modal" data-bs-target="#logoutModal" >Log out</a>
+                  <a class="dropdown-item" href="#"data-bs-toggle="modal" data-bs-target="#logoutModal" ><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
                 </li>
               </ul>
             </li>
