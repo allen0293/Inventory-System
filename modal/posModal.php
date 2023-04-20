@@ -1,5 +1,5 @@
 <!-- Add to Que Modal -->
-   <div class="modal fade " id="addStock<?php echo $row['invt_id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productLabel" aria-hidden="true">
+   <div class="modal fade " id="pos<?php echo $row['invt_id']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productLabel" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content">
         <div class="modal-header ">
@@ -17,7 +17,7 @@
                 </div>  
 
                 <div class="form-floating mb-3 d-none">
-                        <input type="number" name="unitPrice" value="<?php echo $row['unit_price']; ?>" class="form-control" id="unitPrice" placeholder="Unit Price" required >
+                        <input type="number" name="unitPrice" value="<?php echo $row['sell_price']; ?>" class="form-control" id="unitPrice" placeholder="Unit Price" required >
                         <label for="unitPrice">Unit Price</label>
                 </div>
 

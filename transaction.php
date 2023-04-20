@@ -74,7 +74,7 @@
 
                     <tbody>
                       <?php 
-                        $stmt = $pro->runQuery("SELECT * FROM transaction");
+                        $stmt = $pro->runQuery("SELECT * FROM transaction order by trans_id desc");
                         $stmt->execute();
                         $arrayProduct = array();  
                         $count = $stmt->rowCount();
@@ -119,11 +119,11 @@
           return confirm('Are you sure you want do delete this Product? You might not get an Accurate data if you delete it');
       });
 
-      $(document).ready(function () {
-      $(".data-table").each(function (_, table) {
-        $(table).DataTable();
-      });
-    });
+      $(document).ready(function() {
+          $('#example').DataTable({
+            ordering: false
+          });
+        });
 
   </script>
  </body>

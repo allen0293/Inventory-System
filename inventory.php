@@ -25,9 +25,9 @@
       require_once "classes/productClass.php";
       $pro =  new Product();
       $_SESSION['redirect']=$_SERVER['PHP_SELF'];
-      if(!empty($_SESSION['inventory_notif'])){
-        echo'<script> swal("SUCCESS", "'.$_SESSION['inventory_notif'].'", "success"); </script>';   
-        unset($_SESSION['inventory_notif']);
+      if(!empty($_SESSION['insert_success'])){
+        echo'<script> swal("SUCCESS", "'.$_SESSION['insert_success'].'", "success"); </script>';   
+        unset($_SESSION['insert_success']);
       }if(!empty($_SESSION['update_success'])){
         echo'<script> swal("SUCCESS", "'.$_SESSION['update_success'].'", "success"); </script>';   
         unset($_SESSION['update_success']);
@@ -66,15 +66,17 @@
                 <div class="table-responsive">
                   <table
                     id="example"
-                    class="table table-striped data-table"
-                    style="width: 100%"
+                    class="table table-striped data-table text-center"
+                    style="width: 100%; font-size: 14px;"
                   >
                     <thead>
                       <tr>
                         <th>Action</th>
-                        <th>Product Name</th>
+                        <th>Product</th>
                         <th>Band Name</th>
+                        <th>Supplier</th>
                         <th>Unit Price</th>
+                        <th>Selling Price</th>
                         <th>Stock</th>
                         <th>Sold Stock</th>
                       </tr>
@@ -94,14 +96,16 @@
                     
                       ?>
                       <tr>
-                      <td><a href="#" class=" btn btn-sm btn-outline-info"  data-bs-toggle="modal"data-bs-target="#editProduct<?php echo $row['invt_id']; ?>"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                      <a href="#" class="btn btn-sm btn-outline-success" style="text-decoration: none ;"data-bs-toggle="modal" data-bs-target="#addStock<?php echo $row['invt_id']; ?>" ><i class="fa-solid fa-circle-plus"></i> Stock</a>
-                      <a href="#" class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#deductStock<?php echo $row['invt_id']; ?>" ><i class="fa-solid fa-circle-minus"></i> Stock</a>
-                      <a class="btn btn-sm btn-outline-danger confirmation "style="text-decoration: none ;" href="productCode.php?deleteProduct=<?php echo $row['invt_id'];?>"><i class="fa-solid fa-trash"></i> Delete</a>
+                      <td><a href="#" class=" btn btn-sm btn-outline-info mb-1"  data-bs-toggle="modal"data-bs-target="#editProduct<?php echo $row['invt_id']; ?>"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                      <a href="#" class="btn btn-sm btn-outline-success mb-1" style="text-decoration: none ;"data-bs-toggle="modal" data-bs-target="#addStock<?php echo $row['invt_id']; ?>" ><i class="fa-solid fa-circle-plus"></i> Stock</a>
+                      <a href="#" class="btn btn-sm btn-outline-warning mb-1" data-bs-toggle="modal" data-bs-target="#deductStock<?php echo $row['invt_id']; ?>" ><i class="fa-solid fa-circle-minus"></i> Stock</a>
+                      <a class="btn btn-sm btn-outline-danger confirmation mb-1 "style="text-decoration: none ;" href="productCode.php?deleteProduct=<?php echo $row['invt_id'];?>"><i class="fa-solid fa-trash"></i> Delete</a>
                       </td>
-                        <td><?php echo $row['name']; ?></td>
+                        <td><?php echo $row['name'].' '.$row['unit_measurement']; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
+                        <td><?php echo $row['supplier']; ?></td>
                         <td><?php echo number_format($row['unit_price'],2);  ?></td>
+                        <td><?php echo number_format($row['sell_price'],2); ?></td>
                         <td><?php echo $row['qnty']; ?></td>
                         <td><?php echo $row['sold_qnty']; ?></td>
                       </tr>
@@ -143,8 +147,23 @@
                     </div>
 
                     <div class="form-floating mb-3">
+                        <input type="number" step="0.01" autocomplete="off" name="sellingPrice" class="form-control" id="unitPrice" placeholder="Selling Price" required >
+                        <label for="sellingPrice">Selling Price</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
                         <input type="number" name="quantity" autocomplete="off" class="form-control" id="quantity" placeholder="Quantity" required >
                         <label for="quantity">Quantity</label>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" name="measurement" autocomplete="off" class="form-control" id="quantity" placeholder="Quantity" required >
+                        <label for="measurement">Unit of Measurement</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" name="supplier" autocomplete="off" class="form-control" id="quantity" placeholder="Quantity" required >
+                        <label for="supplier">Supplier</label>
                     </div>
 
                     <div class="d-grid">

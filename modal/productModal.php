@@ -25,8 +25,23 @@
                 </div>
 
                 <div class="form-floating mb-3">
+                    <input type="text" name="supplier" autocomplete="off" value="<?php echo $row['supplier']; ?>"class="form-control" id="brandName" placeholder="Brand Name" required >
+                    <label for="supplier">Supplier Name</label>
+                </div>
+
+                <div class="form-floating mb-3">
                         <input type="number" step="0.01" name="unitPrice" autocomplete="off" value="<?php echo $row['unit_price']; ?>" class="form-control" id="unitPrice" placeholder="Unit Price" required >
                         <label for="unitPrice">Unit Price</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                        <input type="number" step="0.01" name="sellingPrice" autocomplete="off" value="<?php echo $row['sell_price']; ?>" class="form-control" id="unitPrice" placeholder="Unit Price" required >
+                        <label for="sellingPrice">Selling Price</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" name="measurement" autocomplete="off" value="<?php echo $row['unit_measurement']; ?>"class="form-control" id="brandName" placeholder="Brand Name" required >
+                    <label for="measurement">Unit of Measurement</label>
                 </div>
 
                 <div class="d-grid">

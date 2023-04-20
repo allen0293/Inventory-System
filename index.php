@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 mb-3">
+          <div class="col-md-4 mb-3">
             <div class="card bg-primary text-white h-100">
               <div class="col d-flex justify-content-center">
                   <div class="card-body py-5 fs-3">Sales Today</div>
@@ -72,7 +72,7 @@
               </a>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-md-4 mb-3">
             <div class="card bg-info text-white h-100">
                <div class="col d-flex justify-content-center">
                   <div class="card-body py-5 fs-3">Sales This Month</div>
@@ -88,10 +88,71 @@
               </a>
             </div>
           </div>
+
+            <div class="col-md-4 mb-3">
+              <div class="card bg-success text-white h-100">
+                <div class="col d-flex justify-content-center">
+                    <div class="card-body py-5 fs-3">Gross Profit (Less VAT)</div>
+                    <div class="text-md py-5 font-weight-bold fs-3 px-2"><?php echo number_format($pos->grossProfit(),2)?></div>
+                </div>
+                <a href="#" class=" text-decoration-none text-white">
+                  <div class="card-footer d-flex">
+                   
+                    <span class="ms-auto">
+                      <i class="bi bi-chevron-right"></i>
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="container">
+            <div class="card shadow">
+              <div class="card-header">
+                <h3>Top 10 Best Seller</h3>
+              </div>
+              <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <th>Top</th>
+                        <th>Product</th>
+                        <th>Sold Quantity</th>
+                      </thead>
+                      <tbody>
+                      <?php
+                          $stmt = $pos->runQuery("SELECT invt_id, name, unit_measurement, sold_qnty
+                          FROM inventory
+                          GROUP BY invt_id, name, unit_measurement
+                          ORDER BY sold_qnty DESC
+                          LIMIT 10;");
+                          $stmt->execute();
+                          $count = $stmt->rowCount();
+                          $top = 1;
+                          if($count > 0){
+                            while($rowProduct = $stmt->fetch(PDO::FETCH_ASSOC)){         
+                          ?>
+                          <tr>
+                            <td><?php echo $top; ?></td>
+                            <td><?php echo $rowProduct['name'].' '.$rowProduct['unit_measurement']; ?></td>
+                            <td><?php echo $rowProduct['sold_qnty']; ?></td>
+                          </tr>
+                       <?php $top++;}}?>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+            </div>
+        </div>
+        <hr>
         <div class="row">
           <div class="col-md-6 mb-3">
-              <div class="card h-100">
+              <div class="card h-100 shadow">
                 <div class="card-header">
                   <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
                     Daily Sales
@@ -103,7 +164,7 @@
             </div>
 
           <div class="col-md-6 mb-3">
-              <div class="card h-100">
+              <div class="card h-100 shadow">
                 <div class="card-header">
                   <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
                    Monthly Sales
@@ -114,6 +175,70 @@
               </div>
             </div>
         </div>
+        <hr>
+        <div class="row">
+          <div class="col">
+            <div class="card shadow">
+              <div class="card-header">
+                   <h3 class="text-warning">Low in Stock</h3>
+              </div>
+              <div class="card-body">
+                <div class="table-resposive">
+                  <table class="table">
+                    <thead>
+                      <th>Product</th>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $stmt = $pos->runQuery("SELECT * FROM inventory WHERE  qnty < 10 AND qnty <> 0 ");
+                        $stmt->execute();
+                        $count = $stmt->rowCount();
+                        if($count > 0){
+                          while($rowProduct = $stmt->fetch(PDO::FETCH_ASSOC)){         
+                        ?>
+                        <tr>
+                          <td><?php echo $rowProduct['name'].' '.$rowProduct['unit_measurement']; ?></td>
+                        </tr>
+                    <?php }}?>
+                    </tbody>
+                  </table>
+                </div>
+              </div> 
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card shadow">
+              <div class="card-header">
+                <h3 class="text-danger">Out of Stock</h3>
+              </div>
+              <div class="card-body">
+                  <div class="table-resposive">
+                    <table class="table">
+                      <thead>
+                        <th>Product</th>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $stmt = $pos->runQuery("SELECT * FROM inventory WHERE  qnty = 0");
+                        $stmt->execute();
+                        $count = $stmt->rowCount();
+                        if($count > 0){
+                          while($rowProduct = $stmt->fetch(PDO::FETCH_ASSOC)){         
+                        ?>
+                        <tr>
+                          <td><?php echo $rowProduct['name'].' '.$rowProduct['unit_measurement']; ?></td>
+                        </tr>
+                        <?php }}?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div> 
+              </div> 
+          </div>
+        </div>      
+        </div>
+
       </div>
     </main>
     <script src="./js/bootstrap.bundle.min.js"></script>
@@ -139,9 +264,9 @@ foreach ($dailyStmt as $row) {
 
 
 //monthly Sales
-$monthlyStmt= $pos->runQuery("SELECT sum(total) as total, monthname(date_process) as MONTHNAME 
-FROM pos 
-WHERE Year(date_process) = YEAR(NOW()) group by monthname(date_process) ORDER BY date_process");
+$monthlyStmt= $pos->runQuery("SELECT sum(total_amount) as total, monthname(trans_date) as MONTHNAME 
+FROM transaction 
+WHERE Year(trans_date) = YEAR(NOW()) group by monthname(trans_date) ORDER BY trans_date");
 $monthlyStmt->execute();
     foreach ($monthlyStmt as $data) {
       $month[] = $data['MONTHNAME'];

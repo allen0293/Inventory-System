@@ -6,7 +6,7 @@ require_once('tcpdf_min/tcpdf.php');
 require_once "classes/posClass.php";
 $pos = new POS();
 if(!$_SESSION['amount']){
-    echo"<script>window.location.replace('POS.php');</script>";
+    header("location:POS.php");
   }
 function pdf($content){  
     require_once('tcpdf_min/tcpdf.php');  
@@ -62,7 +62,7 @@ if(isset($_POST["receipt"]))
  function fetch_receipt(){
     $pos = new POS();
     $output='';
-        $stmt = $pos->runQuery("SELECT pos.pos_id, inventory.invt_id, inventory.name, inventory.brand_name, pos.unit_price, pos.qnty, pos.total, pos.status 
+        $stmt = $pos->runQuery("SELECT pos.pos_id, inventory.invt_id, inventory.name, inventory.brand_name, inventory.unit_measurement, pos.unit_price, pos.qnty, pos.total, pos.status 
         FROM `pos` 
         INNER JOIN inventory 
         ON pos.invt_id = inventory.invt_id 
@@ -79,7 +79,7 @@ if(isset($_POST["receipt"]))
                 $total = $total + $row['total'];
            $output .='
                 <tr> 
-                <td>'.$row['name'].'</td>
+                <td>'.$row['name'].' '.$row['unit_measurement'].'</td>
                 <td>'.$row['brand_name'].'</td>
                 <td>'.number_format($row['unit_price'],2).'</td>
                 <td>'.$row['qnty'].'</td>
@@ -87,13 +87,22 @@ if(isset($_POST["receipt"]))
               </tr>  
               ';
             }
-            $change = $_SESSION['amount']-$total;
-            $pos->insertTransaction($_SESSION['amount'],$total,$change);
+           
+            $vat = $total*0.12;
+            $totalVat = $total+$vat;
+            $change = $_SESSION['amount']-$totalVat;
+            $pos->insertTransaction($_SESSION['amount'],$totalVat,$change);
             $pos->updateTransIdOnPos();
             $output .='
                 <tfoot>
                 <tr>
-                    <th colspan="5" style="text-align:right"><b>Total:</b> '.number_format($total,2).'</th>
+                    <th colspan="5" style="text-align:right"><b>Sub Total:</b> '.number_format($total,2).'</th>
+                </tr>
+                <tr>
+                    <th colspan="5" style="text-align:right"><b>VAT:</b> 12%</th>
+                </tr>
+                <tr>
+                    <th colspan="5" style="text-align:right"><b>Total:</b> '.number_format($totalVat,2).'</th>
                 </tr>
                 <tr>
                     <th colspan="5" style="text-align:right"><b>Tendered Cash:</b> '.number_format($_SESSION['amount'],2).'</th>

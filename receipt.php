@@ -40,7 +40,7 @@ if(isset($_GET["transaction"]))
                               <tr style="font-weight: bold;">                                                             
                               <th>Product Name</th>
                               <th>Band Name</th>
-                              <th>Unit Price</th>
+                              <th>Price</th>
                               <th>Quantity</th>
                               <th>Total</th>                    
                             </tr>
@@ -51,7 +51,8 @@ if(isset($_GET["transaction"]))
                                 transaction.trans_id, 
                                 transaction.cash,
                                 inventory.invt_id, 
-                                inventory.name, 
+                                inventory.name,
+                                inventory.unit_measurement, 
                                 inventory.brand_name, 
                                 pos.unit_price, 
                                 pos.qnty, 
@@ -74,7 +75,7 @@ if(isset($_GET["transaction"]))
                                         $total = $total + $row['total'];
                                    $content .='
                                         <tr> 
-                                        <td>'.$row['name'].'</td>
+                                        <td>'.$row['name'].' '.$row['unit_measurement'].'</td>
                                         <td>'.$row['brand_name'].'</td>
                                         <td>'.number_format($row['unit_price'],2).'</td>
                                         <td>'.$row['qnty'].'</td>
@@ -82,12 +83,24 @@ if(isset($_GET["transaction"]))
                                       </tr>  
                                       ';
                                     }
-                                    $change = $cash-$total;
+                                    $vat = $total*0.12;
+                                    $totalVat = $total+$vat;
+                                    $change = $cash-$totalVat;
+                                    
                                     $content .='
                                         <tfoot>
                                         <tr>
-                                            <th colspan="5" style="text-align:right"><b>Total:</b> '.number_format($total,2).'</th>
+                                            <th colspan="5" style="text-align:right"><b>Sub Total:</b> '.number_format($total,2).'</th>
                                         </tr>
+
+                                        <tr>
+                                          <th colspan="5" style="text-align:right"><b>VAT</b> 12%</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th colspan="5" style="text-align:right"><b>Total:</b> '.number_format($totalVat,2).'</th>
+                                        </tr>
+
                                         <tr>
                                             <th colspan="5" style="text-align:right"><b>Tendered Cash:</b> '.number_format($cash,2).'</th>
                                         </tr>

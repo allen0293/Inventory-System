@@ -16,13 +16,17 @@
             return $stmt;
         }
         //INSERT NEW PRODUCT RECORD
-        public function insertProduct($productName,$brandName,$unitPrice,$qnty){
+        public function insertProduct($productName,$brandName,$unitPrice,$selling_price,$qnty,$measurement,$supplier){
             try {
-                $stmt = $this->conn->prepare("INSERT INTO inventory(name, brand_name, unit_price, qnty) VALUES(:productName, :brandName, :unitPrice, :qnty)");
+                $stmt = $this->conn->prepare("INSERT INTO inventory(name, brand_name, unit_price, sell_price, qnty, unit_measurement, supplier) 
+                VALUES(:productName, :brandName, :unitPrice, :selling_price, :qnty, :measurement, :supplier )");
                 $stmt->bindparam(":productName", $productName);
                 $stmt->bindparam(":brandName", $brandName);
                 $stmt->bindparam(":unitPrice", $unitPrice);
+                $stmt->bindparam(":selling_price", $selling_price);
                 $stmt->bindparam(":qnty", $qnty);
+                $stmt->bindparam(":measurement", $measurement);
+                $stmt->bindparam(":supplier", $supplier);
                 $stmt->execute();
                 return $stmt;
             } catch (PDOException $e) {
@@ -32,13 +36,18 @@
         //INSERT NEW PRODUCT RECORD
         
         //UPDATE Product Details
-        public function updateProductDetails($invt_id, $productName, $brandName,$unitPrice){
+        public function updateProductDetails($invt_id, $productName, $brandName,$unitPrice, $selling_price, $measurement, $supplier){
             try {
-                $stmt = $this->conn->prepare("UPDATE inventory SET name = :name, brand_name = :brandName, unit_price = :unitPrice WHERE invt_id = :invt_id");
+                $stmt = $this->conn->prepare("UPDATE inventory SET name = :name, brand_name = :brandName, unit_price = :unitPrice,
+                sell_price = :selling_price, unit_measurement = :measurement, supplier = :supplier
+                WHERE invt_id = :invt_id");
                 $stmt->bindParam(":invt_id", $invt_id);
                 $stmt->bindParam(":name", $productName);
                 $stmt->bindParam(":brandName", $brandName);
                 $stmt->bindparam(":unitPrice", $unitPrice);
+                $stmt->bindparam(":selling_price", $selling_price);
+                $stmt->bindparam(":measurement", $measurement);
+                $stmt->bindparam(":supplier", $supplier);
                 $stmt->execute();
                 return $stmt;
             } catch (PDOException $e) {

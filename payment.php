@@ -42,7 +42,7 @@
                 style="width: 50%">
                 <thead>
                   <tr>
-                    <th>Name</th>
+                    <th>Product</th>
                     <th>Brand</th>
                     <th>Cost</th>
                     <th>Qty</th>
@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                     <?php 
-                    $stmt = $pro->runQuery("SELECT pos.pos_id, inventory.invt_id, inventory.name, inventory.brand_name, pos.unit_price, pos.qnty, pos.total, pos.status 
+                    $stmt = $pro->runQuery("SELECT pos.pos_id, inventory.invt_id, inventory.name, inventory.brand_name, inventory.unit_measurement, pos.unit_price, pos.qnty, pos.total, pos.status 
                     FROM `pos` 
                     INNER JOIN inventory 
                     ON pos.invt_id = inventory.invt_id 
@@ -68,20 +68,30 @@
                         $total = $total + $row['total'];
                     ?>
                     <tr>
-                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['name'].' '.$row['unit_measurement']; ?></td>
                     <td><?php echo $row['brand_name']; ?></td>
                     <td><?php echo number_format($row['unit_price'],2); ?></td>
                     <td><?php echo $row['qnty']; ?></td>
                     <td><?php echo number_format($row['total'],2); ?></td>
                     </tr>
                     <?php } 
-                    $change = $_SESSION['amount']-$total;
+                    $vat = $total*0.12;
+                    $totalVat = $total+$vat;
+                    $change = $_SESSION['amount']-$totalVat;
                     ?>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="4" style="text-align:right">Total:</th>
+                        <th colspan="4" style="text-align:right">Sub Total:</th>
                         <th><?php echo number_format($total,2); ?></th>
+                    </tr>
+                    <tr>
+                        <th colspan="4" style="text-align:right">VAT:</th>
+                        <th>12%</th>
+                    </tr>
+                    <tr>
+                        <th colspan="4" style="text-align:right">Total:</th>
+                        <th><?php echo number_format($totalVat,2); ?></th>
                     </tr>
                     <tr>
                         <th colspan="4" style="text-align:right">Tendered Cash:</th>

@@ -15,7 +15,7 @@ $var->setQnty($_POST['quantity']);
 $stock = $_POST['stock'];
 $total = $var->getQnty()*$var->getunitPrice();
     if($var->getQnty()>$stock || $var->getQnty() < 0){
-        $_SESSION['invalid_input']="invalid input try again";
+        $_SESSION['invalid_input']="Stock Too Short";
         $pos->redirect("POS.php");
     }else{
         if($pos->insertPos($var->getProductId(), $var->getunitPrice(), $var->getQnty(), $total)){
@@ -53,8 +53,5 @@ if(isset($_GET['posId'])){
         $pro->redirect("POS.php");
     }
 }
-
-
-
 
 ?>

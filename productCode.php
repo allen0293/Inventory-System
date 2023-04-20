@@ -11,7 +11,10 @@ if(isset($_POST['addProduct'])){
     $var->setBrandName(ucwords($_POST['brandName']));
     $var->setUnitPrice($_POST['unitPrice']);
     $var->setQnty($_POST['quantity']);
-    if($pro->insertProduct($var->getProductName(), $var->getBrandName(), $var->getunitPrice(), $var->getQnty())){
+    $selling_price = $_POST['sellingPrice'];
+    $measurement = $_POST['measurement'];
+    $supplier = $_POST['supplier'];
+    if($pro->insertProduct($var->getProductName(), $var->getBrandName(), $var->getunitPrice(), $selling_price, $var->getQnty(), $measurement, $supplier)){
         $_SESSION['insert_success']="New Product Added";
         $pro->redirect("inventory.php");
     }else{
@@ -26,7 +29,10 @@ if(isset($_POST['EditProduct'])){
     $var->setProductName(ucwords($_POST['productName']));
     $var->setBrandName(ucwords($_POST['brandName']));
     $var->setUnitPrice($_POST['unitPrice']);
-    if($pro->updateProductDetails($var->getProductId(), $var->getProductName(), $var->getBrandName(), $var->getunitPrice())){
+    $selling_price = $_POST['sellingPrice'];
+    $measurement = $_POST['measurement'];
+    $supplier = $_POST['supplier'];
+    if($pro->updateProductDetails($var->getProductId(), $var->getProductName(), $var->getBrandName(), $var->getunitPrice(), $selling_price, $measurement, $supplier)){
         $_SESSION['update_success']="Product Details Updated";
         $pro->redirect("inventory.php");
     }else{

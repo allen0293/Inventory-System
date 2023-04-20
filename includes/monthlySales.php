@@ -16,6 +16,7 @@
                   >
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Product Name</th>
                         <th>Band Name</th>
                         <th>Unit Price</th>
@@ -27,13 +28,14 @@
 
                     <tbody>
                       <?php 
-                        $stmt = $pos->runQuery("SELECT pos.pos_id, inventory.invt_id, inventory.name, inventory.brand_name, pos.unit_price, pos.qnty, pos.total, pos.status, pos.date_process, pos.date_process
+                        $stmt = $pos->runQuery("SELECT pos.pos_id, inventory.invt_id, inventory.name, inventory.brand_name, inventory.unit_measurement, pos.unit_price, pos.qnty, pos.total, pos.status, pos.date_process, pos.date_process
                         FROM `pos` 
                         INNER JOIN inventory 
                         ON pos.invt_id = inventory.invt_id 
                         WHERE status ='completed' 
                         AND monthname(pos.date_process) = monthname(NOW())
-                        AND YEAR(pos.date_process)=YEAR(NOW())");
+                        AND YEAR(pos.date_process)=YEAR(NOW())
+                        ORDER BY pos_id DESC");
                         $stmt->execute();
                         $arrayPos = array();
                         $total = 0;  
@@ -48,7 +50,8 @@
                           $date = $date->format('F d Y');
                       ?>
                       <tr>
-                        <td><?php echo $row['name']; ?></td>
+                      <td><?php echo $row['pos_id']; ?></td>
+                        <td><?php echo $row['name'].' '.$row['unit_measurement']; ?></td>
                         <td><?php echo $row['brand_name']; ?></td>
                         <td><?php echo number_format($row['unit_price'],2); ?></td>
                         <td><?php echo $row['qnty']; ?></td>
@@ -59,10 +62,18 @@
                     </tbody>
                     <tfoot>
                       <tr>
-                          <th colspan="5" style="text-align:right">Total:</th>
+                          <th colspan="5" style="text-align:right">Sub Total:</th>
                           <th><?php echo number_format($total,2); ?></th>
                       </tr>
-                  </tfoot>
+                      <tr>
+                          <th colspan="5" style="text-align:right">VAT:</th>
+                          <th>12%</th>
+                      </tr>
+                      <tr>
+                          <th colspan="5" style="text-align:right">Total:</th>
+                          <th><?php echo number_format($total+($total*0.12),2); ?></th>
+                      </tr>
+                  </tfoot>s
                   </table>
                 </div>
               </div>

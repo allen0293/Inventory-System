@@ -100,7 +100,7 @@
         //daily sales to be display in Dashboard
         public function dailySales(){
             try {
-                $stmt = $this->conn->prepare("SELECT sum(total) as total FROM pos WHERE date(date_process)=date(NOW())");
+                $stmt = $this->conn->prepare("SELECT sum(total_amount) as total FROM transaction WHERE date(trans_date)=date(NOW()) ");
                 $stmt->execute();
                 $sales=$stmt->fetch(PDO::FETCH_ASSOC);
                 return $sales['total'];
@@ -113,9 +113,9 @@
           //monthly sales to be display in Dashboard
           public function monthSales(){
             try {
-                $stmt = $this->conn->prepare("SELECT sum(total) as total FROM pos 
-                WHERE monthname(date_process) = monthname(NOW()) 
-                AND YEAR(date_process) = YEAR(NOW())");
+                $stmt = $this->conn->prepare("SELECT sum(total_amount) as total FROM transaction 
+                WHERE monthname(trans_date) = monthname(NOW()) 
+                AND YEAR(trans_date) = YEAR(NOW())");
                 $stmt->execute();
                 $sales=$stmt->fetch(PDO::FETCH_ASSOC);
                 return $sales['total'];
@@ -124,6 +124,20 @@
             }
         }
         //monthly sales to be display in Dashboard
+
+         //monthly sales to be display in Dashboard
+         public function grossProfit(){
+            try {
+                $stmt = $this->conn->prepare("SELECT SUM((pos.unit_price - inventory.unit_price) * pos.qnty) AS total_profit FROM pos INNER JOIN inventory ON pos.invt_id = inventory.invt_id");
+                $stmt->execute();
+                $sales=$stmt->fetch(PDO::FETCH_ASSOC);
+                return $sales['total_profit'];
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+        }
+        //monthly sales to be display in Dashboard
+
 
 
          //DELETE POS RECORD
